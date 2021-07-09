@@ -16,8 +16,14 @@
         <h3>Navigation</h3>
         <ul>
             <a href="{% url 'home' %}"><li><i class="fas fa-home"></i> Home</li></a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'post' %}"><li>Create Post</li></a>
+            <a href=""><li>Quizzes</li></a>
+            <a href="{% url 'logout' %}"><li>Logout</li></a>
+            {% else %}
             <a href="{% url 'login' %}"><li>Sign in</li></a>
             <a href="{% url 'register' %}"><li>Sign up</li></a>
+            {% endif %}
         </ul>
     </aside>
     <main>
