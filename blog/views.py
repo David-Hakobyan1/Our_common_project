@@ -11,6 +11,11 @@ class HomePageView(TemplateView):
     template_name = 'blog/home.html'
 
 
+def post_view(request):
+    posts = Post.objects.all()
+    return render(request, 'blog/view_post.html', {'posts': posts})
+
+
 @login_required
 def create_post(request):
     if request.method == 'POST':

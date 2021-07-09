@@ -7,11 +7,8 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'slug', 'body')
 
-    def form_valid(self, form):
-
-        form.instance.author = self.request.user
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name','email','body')
+        fields = ('name', 'email', 'body')
