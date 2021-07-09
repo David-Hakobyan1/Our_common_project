@@ -1,4 +1,4 @@
-from .models import Post
+from .models import Post,Comment
 from django import forms
 
 
@@ -10,3 +10,8 @@ class PostForm(forms.ModelForm):
     def form_valid(self, form):
 
         form.instance.author = self.request.user
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name','email','body')
