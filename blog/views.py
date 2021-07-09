@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from .models import Post
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user
+#from django.views.generic.edit import FormMixin
 
 
 class HomePageView(TemplateView):
@@ -32,4 +33,13 @@ def create_post(request):
     else:
         form = PostForm()
     return render(request, 'blog/create_post.html', {'form': form})
+
+
+@login_required
+def post_detail_page(request, pk):
+    form = CommentForm()
+    post_pk = Post.objects.get(id=pk)
+    return render(request, 'blog/post_detail.html', {'post': post_pk, 'form': form})
+
+
 

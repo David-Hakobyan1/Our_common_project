@@ -22,16 +22,11 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
-    name = models.CharField(max_length=80)
-    email = models.EmailField()
-    body = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    active = models.BooleanField(default=True)
-
-    class Meta:
-        ordering = ('created',)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='post', blank=True, null=True, related_name='comment_post')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author comment', blank=True, null=True)
+    create_date = models.DateTimeField(auto_now=True)
+    text = models.TextField(verbose_name='Comment text')
+    status = models.BooleanField(verbose_name='Visibility of the post', default=False)
 
     def __str__(self):
-        return 'Comment by {} on {}'.format(self.name,self.post)
+        return self.text

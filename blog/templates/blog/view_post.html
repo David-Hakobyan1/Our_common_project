@@ -3,7 +3,7 @@
 
 <div style="color:white" class="container">
         {% for post in posts %}
-            <a href=""><small>{{ post.author }}</small></a>
+            <a href="{% url 'post_detail_page' post.pk %}"><small>{{ post.author }}</small></a>
             <h1>{{ post.title }}</h1>
             <p>By {{ post.author }} on {{ post.publish }}</p>
             <br>

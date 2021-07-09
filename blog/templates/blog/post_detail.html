@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="features">
+    <h2>{{ post.title }}</h2><br>
+    <small>Author: {{ post.author }}</small>
+    <p>{{ post.body }}</p><br>
+    <p>By {{ post.author }} on {{ post.publish }}</p>
+    <p>Comments</p>
+    <hr>
+
+    <div>
+    <form action="" id="add_form" method="post">{% csrf_token %}
+        {{ form.as_p }}
+    </form>
+    <button form="add_form" type="submit" class="btn btn-primary">Add</button>
+    </div>
+
+
+</div>
+
+
+{%endblock%}
