@@ -34,7 +34,6 @@ def create_post(request):
     return render(request, 'blog/create_post.html', {'form': form})
 
 
-@login_required
 def post_detail_page(request, pk):
     form = CommentForm()
     post_pk = Post.objects.get(id=pk)
@@ -44,7 +43,7 @@ def post_detail_page(request, pk):
         if form.is_valid():
             comment = Comment(text=form.cleaned_data.get('text'), post=post_pk, author=get_user(request))
             Comment.save(comment)
-            return render(request, 'blog/post_detail.html', {'post': post_pk, 'form': form, 'comments': comments})
+            return redirect(post_detail_page, pk=pk)
 
     return render(request, 'blog/post_detail.html', {'post': post_pk, 'form': form, 'comments': comments})
 
