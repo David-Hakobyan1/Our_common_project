@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 
 
 class Post(models.Model):
-    STATUS_CHOICES = (('draft','Draft'),('published','Published'),)
+    STATUS_CHOICES = (('draft', 'Draft'), ('published', 'Published'),)
     title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250,unique_for_date='publish')
+    slug = models.SlugField(max_length=250, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
@@ -22,11 +22,10 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='post', blank=True, null=True, related_name='comment_post')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author comment', blank=True, null=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='comment_posts', null=True, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='author_comments', null=True, blank=True)
     create_date = models.DateTimeField(auto_now=True)
-    text = models.TextField(verbose_name='Comment text')
-    status = models.BooleanField(verbose_name='Visibility of the post', default=False)
+    text = models.TextField(verbose_name='Comment text', null=True)
 
     def __str__(self):
         return self.text

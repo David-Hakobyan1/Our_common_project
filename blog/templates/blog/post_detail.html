@@ -8,6 +8,17 @@
     <p>By {{ post.author }} on {{ post.publish }}</p>
     <p>Comments</p>
     <hr>
+    <div>
+        {% if comments %}
+            {% for comment in comments %}
+                <li>
+                    <time>Date of creation: {{ comment.create_date }}</time><br>
+                    Author comment: {{ comment.author }}<br>
+                    {{ comment.text }}<br><br>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </div>
 
     <div>
     <form action="" id="add_form" method="post">{% csrf_token %}
