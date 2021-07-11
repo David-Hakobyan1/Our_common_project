@@ -1,0 +1,43 @@
+{%extends 'blog/base.html'%}
+
+{%block content%}
+
+<h1 style="color:#8585e0;">Welcome to the game <q>Who wants to be a millionaire?</q> </h1>
+<p style="text-align:center"><img src="/static/quizzes/img/million.png" width="250" height="250"></p><br><br><br>
+
+{%if quiz != None%}
+<p style="color:#8585e0;font-size:40px;">{{ quiz.question }}</p>
+<DIV align="left"><TABLE>
+        <tr style="font-size:20px;color:white">
+            <td>1.{{ quiz.answer1 }}</td>
+            <td>2.{{ quiz.answer2 }}</td>
+        </tr>
+
+        <tr style="font-size:20px;color:white">
+            <td>3.{{ quiz.answer3 }}</td>
+            <td>4.{{ quiz.answer4 }}</td>
+        </tr>
+</TABLE>
+</DIV>
+
+<form action="{%url 'play' index%}" method="post">
+    {% csrf_token %}
+  <label style="color:white" for="answer">Your answer:</label><br>
+  <input type="text" id="answer" name="answer">
+  <input type="submit" value="Answer">
+</form>
+{%endif%}
+{%if info == 'Wrong' %}
+<h2 style="color:red">{{info}}</h2>
+{%elif info == 'Right' %}
+<h2 style="color:green">{{info}}</h2>
+{%elif info != '' %}
+<h2 style="color:white;margin-left:21%">{{info}}</h2>
+<small style="color:white;margin-left:2%">We have more topics you can choose: <a href="{%url 'subjects'%}">Select topic</a></small>
+{%endif%}
+{%if number != 0 %}
+<h2 style="color:white;text-align:right;margin-right:5%"> {{number}}/10 </h2>
+{%endif%}
+
+{%endblock content%}
+

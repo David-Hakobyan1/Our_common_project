@@ -19,7 +19,7 @@
             <a href="{% url 'bot_view' %}"><li>Search</li></a>
             {% if user.is_authenticated %}
             <a href="{% url 'post' %}"><li>Create Post</li></a>
-            <a href="{% url 'Quizzes' %}"><li>Quizzes</li></a>
+            <a href="{% url 'quizzes' %}"><li>Quizzes</li></a>
             <a href="{% url 'logout' %}"><li>Logout</li></a>
             {% else %}
             <a href="{% url 'login' %}"><li>Sign in</li></a>

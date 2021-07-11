@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'search_bot.apps.SearchBotConfig',
+    'quizzes.apps.QuizzesConfig',
     'crispy_forms',
 ]
 
