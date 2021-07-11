@@ -79,3 +79,7 @@ def chingachung(request):
             number1 += 1
         return render(request,'blog/chingachung.html',{'my_list':my_list,'number1':number1,'number2':number2,'info':'ok','fnum':fnum,'player2':player2})
     return render(request,'blog/chingachung.html',{'my_list':my_list,'number1':number1,'number2':number2,'info':'start'})
+
+def theme_selection(request):
+    return render(request,'blog/theme_selection.html')
+
