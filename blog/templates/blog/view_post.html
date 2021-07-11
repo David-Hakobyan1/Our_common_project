@@ -1,13 +1,15 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-
-<div style="color:white" class="container">
-        {% for post in posts %}
-            <a href="{% url 'post_detail_page' post.pk %}"><h1>{{ post.title }}</h1></a>
-            <p>By {{ post.author }} on {{ post.publish }}</p>
-        {% endfor %}
+<h1 style="color:lightgray ;margin-left: 21%;">Posts</h1>
+{% for post in posts %}
+<div class="card text-dark bg-light  mb-3" style="max-width: 70rem;margin-left: 21%;">
+  <div class="card-header"><a href="{% url 'post_detail_page' post.pk %}"><h2>{{ post.title }}</h2></a></div>
+    <div class="card-body">
+    <h3 class="card-title"></h3>
+    <p class="card-text">{{post.body}}</p>
+    <small class="text-muted">By {{ post.author }} on {{ post.publish }}</small>
+  </div>
 </div>
-
-
+{% endfor %}
 
 {%endblock%}
