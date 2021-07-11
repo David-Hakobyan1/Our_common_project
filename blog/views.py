@@ -5,6 +5,7 @@ from .models import Post, Comment
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user
+import random
 
 
 class HomePageView(TemplateView):
@@ -47,5 +48,34 @@ def post_detail_page(request, pk):
 
     return render(request, 'blog/post_detail.html', {'post': post_pk, 'form': form, 'comments': comments})
 
+def Quizzes(request):
+    return render(request, 'blog/Quizzes.html')
 
 
+my_list = ["rock","paper","scissors"]
+number1 = 0
+number2 = 0
+def chingachung(request):
+    if request.method == 'POST':
+        global my_list
+        global number1
+        global number2
+        rands = random.randrange(len(my_list))
+        player2 = my_list[rands]
+        fnum = request.POST.get('fname')
+        if player2 == fnum:
+            pass
+        if player2 == "paper" and fnum == "rock":
+            number2 += 1
+        if player2 == "paper" and fnum == "scissors":
+            number1 += 1
+        if player2 == "scissors" and fnum == "paper":
+            number2 += 1
+        if player2 == "scissors" and fnum == "rock":
+            number1 += 1
+        if player2 == "rock" and fnum == "scissors":
+            number2 += 1
+        if player2 == "rock" and fnum == "paper":
+            number1 += 1
+        return render(request,'blog/chingachung.html',{'my_list':my_list,'number1':number1,'number2':number2,'info':'ok','fnum':fnum,'player2':player2})
+    return render(request,'blog/chingachung.html',{'my_list':my_list,'number1':number1,'number2':number2,'info':'start'})

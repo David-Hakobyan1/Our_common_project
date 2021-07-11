@@ -1,0 +1,24 @@
+{% extends "blog/base.html"%}
+
+{% block content%}
+
+<h1 style="color:teal;">Welcome ChingaChung game</h1>
+{% for i in my_list %}
+  <p style="color:white;">{{i}}</p>
+{% endfor %}
+<form method="POST" action="{% url 'chingachung' %}">
+  {% csrf_token %}
+  <label for="fname" style="color:white;">Your choise: </label>
+  <input id="fname" type="text" name="fname" value="">
+  <input type="submit" value="OK">
+</form>
+<br>
+{% if info != "start" %}
+  <p style="color:white;">{{fnum}} and {{player2}}</p>
+{% else %}
+  <p style="color:white;">your choice and opponent's choice</p>
+{% endif %}
+  <p style="color:green;">Result</p>
+  <p style="color:white;">{{number1}} : {{number2}}</p>
+
+{% endblock %}
