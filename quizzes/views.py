@@ -38,9 +38,6 @@ def play(request, index):
 
 
 my_list = ["rock", "paper", "scissors"]
-number1 = 0
-number2 = 0
-
 
 def chingachung(request):
     if request.method == 'POST':
