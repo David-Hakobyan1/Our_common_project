@@ -1,15 +1,43 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, UpdateView, DeleteView
 from .forms import PostForm, CommentForm
 from .models import Post, Comment
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user
-
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 class HomePageView(TemplateView):
     template_name = 'blog/home.html'
+
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    template_name = 'blog/create_post.html'
+    model = Post
+    fields = ['title', 'body']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    template_name = 'blog/post_confirm_delete.html'
+    model = Post
+    success_url = '/'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
 
 
 def post_view(request):

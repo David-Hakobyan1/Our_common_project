@@ -7,6 +7,12 @@
     <div class="card-body">
     <h3 class="card-title"></h3>
     <p class="card-text">{{post.body}}</p>
+      {% if post.author == user %}
+      <div style="text-align:right" class="form-group">
+        <a class="btn btn-outline-info" href="{% url 'post_update' post.pk %}">Update</a>
+        <a class="btn btn-outline-danger" href="{% url 'post_delete' post.pk %}">Delete</a>
+      </div>
+      {% endif %}
     <small class="text-muted">By {{ post.author }} on {{ post.publish }}</small>
   </div>
 </div>

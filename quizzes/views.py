@@ -1,7 +1,6 @@
 from django.shortcuts import render
 import random
 from .models import CountriesQuestion, DifferentQuestion, SportQuestion
-# from django.core.exceptions import ObjectDoesNotExist
 
 
 def quizzes(request):
@@ -25,8 +24,11 @@ def play(request, index):
             id += 1
             answer = request.POST.get('answer')
             if answer == quiz.right_answer:
+                print(answer)
+                print(quiz.right_answer)
                 info = 'Right'
                 number += 1
+                print(number)
             else:
                 info = 'Wrong'
             quiz = topic.objects.get(id=id)
