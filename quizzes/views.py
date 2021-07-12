@@ -65,6 +65,8 @@ def chingachung(request):
         if player2 == "rock" and fnum == "paper":
             number1 += 1
         return render(request, 'quizzes/chingachung.html',{'my_list':my_list,'number1':number1,'number2':number2,'info':'ok','fnum':fnum,'player2':player2})
+    number1 = 0
+    number2 = 0
     return render(request, 'quizzes/chingachung.html', {'my_list':my_list,'number1':number1,'number2':number2,'info':'start'})
 
 
