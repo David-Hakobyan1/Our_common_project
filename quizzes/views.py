@@ -18,26 +18,25 @@ def play(request, index):
     topics = [sport, country, different]
     topic = topics[int(index)]
     info = ''
+    quiz = topic.objects.get(id=id)
     try:
-        quiz = topic.objects.get(id=id)
         if request.method == 'POST':
-            id += 1
+            id+=1
             answer = request.POST.get('answer')
             if answer == quiz.right_answer:
-                print(answer)
-                print(quiz.right_answer)
                 info = 'Right'
                 number += 1
-                print(number)
             else:
                 info = 'Wrong'
             quiz = topic.objects.get(id=id)
+            return render(request, 'quizzes/game.html', {'quiz': quiz, 'number': number, 'info': info, 'index': index})
     except topic.DoesNotExist:
         info = f'"Game over!Your score is {number}/10!"'
         quiz = None
         id = 1
+        number = 0
     return render(request, 'quizzes/game.html', {'quiz': quiz, 'number': number, 'info': info, 'index': index})
-
+        
 
 my_list = ["rock", "paper", "scissors"]
 
