@@ -31,10 +31,13 @@ def play(request, index):
             quiz = topic.objects.get(id=id)
             return render(request, 'quizzes/game.html', {'quiz': quiz, 'number': number, 'info': info, 'index': index})
     except topic.DoesNotExist:
+        id=1
         info = f'"Game over!Your score is {number}/10!"'
         quiz = None
-        id = 1
-        number = 0
+        return render(request, 'quizzes/game.html', {'quiz': quiz, 'number': number, 'info': info, 'index': index})
+    id = 1
+    number = 0
+    quiz = topic.objects.get(id=id)
     return render(request, 'quizzes/game.html', {'quiz': quiz, 'number': number, 'info': info, 'index': index})
         
 
