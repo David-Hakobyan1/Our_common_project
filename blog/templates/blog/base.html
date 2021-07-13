@@ -15,6 +15,7 @@
         <h3>Navigation</h3>
         <ul>
             <a href="{% url 'home' %}"><li><i class="fas fa-home"></i> Home</li></a>
+	    <a href="{% url 'about' %}"><li> About</li></a>
             <a href="{% url 'post_view' %}"><li>Posts</li></a>
             <a href="{% url 'bot_view' %}"><li>Search</li></a>
             {% if user.is_authenticated %}

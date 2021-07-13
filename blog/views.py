@@ -13,6 +13,10 @@ class HomePageView(TemplateView):
     template_name = 'blog/home.html'
 
 
+class AboutPageView(TemplateView):
+    template_name = 'blog/about.html'
+
+
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'blog/create_post.html'
     model = Post
