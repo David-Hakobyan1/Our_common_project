@@ -30,6 +30,8 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='author_comments', null=True, blank=True)
     create_date = models.DateTimeField(auto_now=True)
     text = models.TextField(verbose_name='Comment text', null=True)
+    likes = models.ManyToManyField(User, blank=True, related_name='likes')
+    dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes')
 
     def __str__(self):
         return self.text

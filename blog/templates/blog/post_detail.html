@@ -8,25 +8,49 @@
     <p>By {{ post.author }} on {{ post.publish }}</p>
     <p>Comments</p>
     <hr>
-    <div>
         {% if comments %}
             {% for comment in comments %}
                 <li>
                     <time>Date of creation: {{ comment.create_date }}</time><br>
                     Author comment: {{ comment.author }}<br>
-                    {{ comment.text }}<br><br>
+                    {{ comment.text }}<br>
                 </li>
+
+                {% if user.is_authenticated %}
+                    <div style="background: #F2F8FD; text-align: center; padding-left: 30px; padding-right: 60px;">
+                        <form method="POST" action="{% url 'like' comment.pk %}" style="display: inline-block;">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
+                                <i class="far fa-thumbs-up"><span>{{ comment.likes.all.count }}</span></i>
+                            </button>
+                        </form>
+
+                        <form method="POST" action="{% url 'dislike' comment.pk %}" style="display: inline-block;">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
+                                <i class="far fa-thumbs-down"><span>{{ comment.dislikes.all.count }}</span></i>
+                            </button>
+                        </form>
+                    </div>
+                    <br>
+                {% endif %}
+
+
             {% endfor %}
         {% endif %}
-    </div>
-    {% if user.is_authenticated %}
-    <div>
-    <form id="add_form" method="post">{% csrf_token %}
-        {{ form.as_p }}
-    </form>
-    <button form="add_form" type="submit" class="btn btn-primary">Add</button>
-    </div>
-    {% endif %}
-</div>
 
+
+
+    {% if user.is_authenticated %}
+        <div>
+            <form id="add_form" method="post">{% csrf_token %}
+                {{ form.as_p }}
+            </form>
+            <button form="add_form" type="submit" class="btn btn-primary">Add</button>
+        </div>
+    {% endif %}
+
+</div>
 {%endblock%}

@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import HttpResponseRedirect
 
 
 class HomePageView(TemplateView):
@@ -75,4 +76,64 @@ def post_detail_page(request, pk):
             return redirect(post_detail_page, pk=pk)
 
     return render(request, 'blog/post_detail.html', {'post': post_pk, 'form': form, 'comments': comments})
+
+
+def add_like(request, pk):
+    comment = Comment.objects.get(pk=pk)
+
+    is_dislike = False
+
+    for dislike in comment.dislikes.all():
+        if dislike == request.user:
+            is_dislike = True
+            break
+
+    if is_dislike:
+        comment.dislikes.remove(request.user)
+
+    is_like = False
+
+    for like in comment.likes.all():
+        if like == request.user:
+            is_like = True
+            break
+
+    if not is_like:
+        comment.likes.add(request.user)
+
+    if is_like:
+        comment.likes.remove(request.user)
+
+    next = request.POST.get('next', '/')
+    return HttpResponseRedirect(next)
+
+
+def add_dislike(request, pk):
+    comment = Comment.objects.get(pk=pk)
+
+    is_like = False
+
+    for like in comment.likes.all():
+        if like == request.user:
+            is_like = True
+            break
+
+    if is_like:
+        comment.likes.remove(request.user)
+
+    is_dislike = False
+
+    for dislike in comment.dislikes.all():
+        if dislike == request.user:
+            is_dislike = True
+            break
+
+    if not is_dislike:
+        comment.dislikes.add(request.user)
+
+    if is_dislike:
+        comment.dislikes.remove(request.user)
+
+    next = request.POST.get('next', '/')
+    return HttpResponseRedirect(next)
 
